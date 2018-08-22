@@ -1,0 +1,8 @@
+/home/tp/project/web/wwwroot/online_tools/Compile/file/edit.cc: 在函数‘int main()’中:
+/home/tp/project/web/wwwroot/online_tools/Compile/file/edit.cc:13:8: 错误：类型没有后自增运算符
+        ++it;
+        ^
+/home/tp/project/web/wwwroot/online_tools/Compile/file/edit.cc:13:10: 错误：expected ‘;’ before ‘it’
+        ++it;
+          ^
+make: *** [/home/tp/project/web/wwwroot/online_tools/Compile/file/compile] 错误 1
