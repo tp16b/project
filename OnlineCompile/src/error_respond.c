@@ -1,3 +1,4 @@
+#include "http.h"
 #include "error_respond.h"
 
 int send_error_page(int sock, const char* path, int error_code)
@@ -21,7 +22,7 @@ int send_error_page(int sock, const char* path, int error_code)
 	sprintf( line, "Content-Type: text/html\r\n") ;
 	send(sock, line, strlen(line), 0);
 
-	sprintf( line, "Content-Length: %d\r\n", st.st_size) ;
+	sprintf( line, "Content-Length: %ld\r\n", st.st_size) ;
 	send(sock, line, strlen(line), 0);
 
 	send( sock, "\r\n" , 2, 0) ;

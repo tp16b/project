@@ -1,7 +1,7 @@
 .PHONY: all clean
 
 
-DICT=/home/tp/project/web/wwwroot/online_tools/Compile
+DICT=/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile
 COMPILE=$(DICT)/file/compile
 LOADCODE=$(DICT)/loadcodefile 
 

@@ -2,9 +2,10 @@
 
 CC=gcc
 INCLUDE=./wwwroot/online_tools/
+SRCPATH=./src
 EXEC=./bin/httpd
 
-$(EXEC): src/main.c src/http.c src/error_respond.c
+$(EXEC): $(SRCPATH)/main.c $(SRCPATH)/http.c $(SRCPATH)/error_respond.c $(SRCPATH)/exec_cgi.c
 	$(CC) -g -o $@ $^ -I$(INCLUDE) -lpthread
 
 clean:

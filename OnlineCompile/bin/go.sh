@@ -6,5 +6,5 @@
 #########################################################################
 #!/bin/bash
 
-cd /home/tp/project/web;make clean;
-make;./bin/httpd 8080;
+cd /home/tp/project/OnlineCompile;make clean;
+make;./bin/httpd 3030;

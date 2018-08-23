@@ -44,19 +44,19 @@ int GenerateEditFile( )
 	//3. 创建临时编译文件
 	int fd;
 	if(option.compare("C") == 0){ 
-		fd = open("/home/tp/project/web/wwwroot/online_tools/Compile/file/edit.c", \
+		fd = open("/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.c", \
 				O_RDWR|O_CREAT|O_TRUNC, 0644);	
 
 	}else if(option.compare("C++") == 0){ 
-		fd = open("/home/tp/project/web/wwwroot/online_tools/Compile/file/edit.cc", \
+		fd = open("/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.cc", \
 				O_RDWR|O_CREAT|O_TRUNC, 0644);	
 
 	}else if(option.compare("Python") == 0){ 
-		fd = open("/home/tp/project/web/wwwroot/online_tools/Compile/file/edit.py", \
+		fd = open("/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.py", \
 				O_RDWR|O_CREAT|O_TRUNC, 0644);	
 
 	}else if(option.compare("Shell") == 0){ 
-		fd = open("/home/tp/project/web/wwwroot/online_tools/Compile/edit.sh", \
+		fd = open("/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.sh", \
 				O_RDWR|O_CREAT|O_TRUNC, 0644);	
 
 	}else{ 
@@ -66,7 +66,7 @@ int GenerateEditFile( )
 		std::cerr<<"[open code file failed]\n";
 		return 1;
 	}
-
+	
 	std::cerr<<"[this str will write to codefile:] "<<handleStr<<std::endl<<std::endl;
 	//4. 写入临时编译文件
 	ssize_t w = write(fd, handleStr.c_str( ), handleStr.size( ));

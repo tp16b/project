@@ -1,16 +1,15 @@
 #include <iostream>
-#include <set>
+#include <unistd.h>
+
 using namespace std;
 int main()
 {
-    int a[]={3,12,4,5,6};
-    set<int> s;
-    for(int i =0; i< 5; ++i)
-       s.insert(a[i]);
-    set<int>::iterator it = s.begin();
-    while(it != s.end()){
-       cout<<*it<<"<br>"<<endl
-       ++it;
-    }
-    return 0;
+   int i =10;
+   while(i-- > 0){
+cout<<"i="<<i<<"<br>"<<endl;
+ sleep(1);
+
+}
+     
+  return 0;
 }

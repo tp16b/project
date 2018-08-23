@@ -1,5 +1,13 @@
 #include "http.h"
-#define N 10
+#define MAX_EVENTS 1000 
+
+void ResetOneshot(int epollfd, int fd)  
+{ 
+	struct epoll_event event;
+	event.data.fd = fd;
+	event.events = EPOLLIN | EPOLLONESHOT;
+	epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &event);
+}
 
 int startup(int port) /*{{{*/
 { 
@@ -17,7 +25,7 @@ int startup(int port) /*{{{*/
 	if( bind(sock, (struct sockaddr*)&local, sizeof(local))< 0 ){ 
 		perror("bind"),exit( 3);
 	}
-	if( listen(sock, 5)< 0){ 
+	if( listen(sock, 1000)< 0){ 
 		perror("listen"),exit( 4);
 	}
 	return sock;
@@ -26,21 +34,21 @@ int startup(int port) /*{{{*/
 int main(int argc, char* argv[ ] )
 { 
 	if( argc != 2){ 
-		printf( "Usage: command+ port\n");
+		printf( "Usage: server+ port\n");
 		return 1;
 	}
 	int listen_sock = startup(atoi(argv[ 1]));
 
-	int epoll_fd = epoll_create(N);
+	int epoll_fd = epoll_create(5);
 	struct epoll_event event;
 	event.events = EPOLLIN;
 	event.data.fd = listen_sock;
 	epoll_ctl( epoll_fd, EPOLL_CTL_ADD, listen_sock, &event);
 
 	while( 1){ 
-		struct epoll_event event_list[N];
+		struct epoll_event event_list[MAX_EVENTS];
 
-		int nfd = epoll_wait(epoll_fd, event_list, N, -1); 
+		int nfd = epoll_wait(epoll_fd, event_list, MAX_EVENTS, -1); 
 		if( nfd < 0)	{perror("epoll_wait"); continue; }
 		if( nfd == 0)	{perror("epoll timeout"); continue; }
 	
@@ -55,20 +63,29 @@ int main(int argc, char* argv[ ] )
 				//accept后con_fd添加进epoll
 				struct epoll_event ev;
 				ev.data.fd = con_fd;
-				ev.events = EPOLLIN;
+				/*对每个非listen_sock注册EPOLLONESHOT事件*/
+				ev.events = EPOLLIN | EPOLLONESHOT;  
+
 				if(epoll_ctl(epoll_fd, EPOLL_CTL_ADD, con_fd, &ev) < 0){ 
 					perror("epoll_ctl"); continue;
 				}
 			}else{ 
 				if(event_list[i].events & EPOLLIN){ 
 				//con_fd 有读事件就绪，处理请求 
-					int ret =handleRequest(event_list[i].data.fd, epoll_fd);
-					if( ret < 0)  { perror("handleRequest"); continue;}
+					fds_t fds_new_work;
+					fds_new_work.epollfd = epoll_fd;
+					fds_new_work.handlefd = event_list[i].data.fd;
+
+					/*新启动一个工作线程为handlefd服务*/
+					pthread_t tid;					
+					pthread_create(&tid, NULL, HandleRequest, (void*)&fds_new_work);
+					pthread_detach(tid);
 				} 
 			}
 		}
 	}
 	close( listen_sock);
+	close( epoll_fd);
 	return 0;
 }
 
