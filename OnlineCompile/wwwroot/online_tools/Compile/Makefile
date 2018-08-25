@@ -1,15 +1,12 @@
-.PHONY: all clean
-
 
 DICT=/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile
-COMPILE=$(DICT)/file/compile
 LOADCODE=$(DICT)/loadcodefile 
-
+INCLUDE=$(DICT)/../
 all: $(LOADCODE) $(COMPILE)
 
 $(LOADCODE): $(DICT)/getcode.cc
-	g++ -std=c++11 -g -o $@ $^ -I../ 
-$(COMPILE):$(DICT)/file/edit.cc
-	g++ -std=c++11 -g -o $@ $^ 
+	g++ -std=c++11 -g -o $@ $^ -I$(INCLUDE)
+
+.PHONY: clean
 clean:
-	rm -rf $(LOADCODE) $(COMPILE) 
+	rm -rf $(LOADCODE) 

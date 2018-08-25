@@ -1,12 +1,10 @@
-#include <iostream>
+#include <stdio.h>
 #include <unistd.h>
-using namespace std;
 int main()
 {
 	int i=100;
         while(i--){
-           cout<<"i="<<i<<endl;
-          sleep(1);
+           printf("ffffffffa%d\n", i);
        }         
 return 0;
 }
