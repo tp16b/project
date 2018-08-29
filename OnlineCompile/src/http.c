@@ -94,9 +94,9 @@ void* HandleRequest(void* arg)
 	char path[MAX];					//存放路径
 	char* query_string = NULL;
 
-	ssize_t line_size = getLine(con_fd, line, sizeof(line));
+	ssize_t line_size = GetOneLine(con_fd, line, sizeof(line));
 	if( line_size < 0){ 
-		printf( "getline < 0\n");
+		printf( "GetOneLine < 0\n");
 		goto end;
 	}
 	if(line_size == 0){ 
@@ -118,7 +118,7 @@ void* HandleRequest(void* arg)
 	struct stat st;
 	if(stat(path, &st) < 0){ 
 		printf( "stat failed\n");
-		clear_head(con_fd);                 //没有资源 清理头
+		ClearHead(con_fd);                 //没有资源 清理头
 		error_code = 404;          
 		goto end;
 
@@ -132,7 +132,7 @@ void* HandleRequest(void* arg)
 		}else if((st.st_mode & S_IFMT) == S_IFDIR ){  //direct?
 			//判断是否具有可读权限？没有跳转错误，有 响应相关页面
 			if(0 == strncasecmp(path, "wwwroot/cgi_src", 15)){ 
-				clear_head(con_fd);//清理头
+				ClearHead(con_fd);//清理头
 				error_code = 403;
 				goto end;
 			} 
@@ -142,17 +142,20 @@ void* HandleRequest(void* arg)
 	if(cgi_flag)  
 		error_code = ExecCgi(con_fd, method, path, query_string);
 	else{ 
-		clear_head(con_fd);
+		ClearHead(con_fd);
 		error_code = RespondResouse(con_fd, path, st.st_size);
 	}
 end:
 	if(error_code != 200){ 
 		printf( "error_code: %d\n", error_code);
-		if(echo_error(con_fd, error_code) < 0){ 
+		if(echo_error(con_fd, error_code) < 0) 
 			printf("echo_error faild...\n");
-		}
-	} 
-	ResetOneshot(epoll_fd, con_fd);
-	close(con_fd);  //?关闭
+	}
+	/*在给客户返回执行结果后就关闭对端连接,此处不为常连接*/ 
+	close(con_fd);  
+	printf( "【用户代码执行完毕, 已关闭用户连接!】\n");
+
+	/*不需要其它线程对该con_fd进行操作,不用为con_fd设置回EPOLLONESHOT*/
+//	ResetOneshot(epoll_fd, con_fd);  
 	return NULL;
 } /*}}}*/

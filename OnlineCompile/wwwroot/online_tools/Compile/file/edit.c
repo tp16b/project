@@ -1,10 +1,12 @@
-#include <stdio.h>
+#include<iostream>
 #include <unistd.h>
-int main()
+
+int main(void )
 {
-	int i=100;
-        while(i--){
-           printf("ffffffffa%d\n", i);
-       }         
-return 0;
+    for(int i=0; i< 20; ++i){
+     std::cout<<"分级基金接近 斤斤计较斤斤计较斤斤计较斤斤计较斤斤计较斤<br>"<<std::endl;
+     sleep(1);
+   }
+ 
+   return 0;
 }

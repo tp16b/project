@@ -25,13 +25,13 @@
 #define ROOT "wwwroot"
 #define MAIN_PAGE "index.html"
 
-enum { MAX=1024};
+enum { MAX=64};
 typedef struct fds{ 
 	int epollfd;
 	int handlefd;
 }fds_t;
 
-static ssize_t getLine(int sock, char* line, int len) { 
+static ssize_t GetOneLine(int sock, char* line, int len) { 
 	assert( line && len> 0);
 	char ch ='a';
 	int i =0;
@@ -50,12 +50,12 @@ static ssize_t getLine(int sock, char* line, int len) {
 	return i;
 }
 
-static ssize_t clear_head(int sock){ 
+static ssize_t ClearHead(int sock){ 
 	ssize_t size =-1;
 	char line[MAX];
 	ssize_t count = 0;
 	do{ 
-		size = getLine(sock, line, MAX);
+		size = GetOneLine(sock, line, MAX);
 		++count;
 	}while(size != 1 || strcmp(line, "\n") != 0);
 	

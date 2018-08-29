@@ -63,7 +63,8 @@ int main(int argc, char* argv[ ] )
 				//accept后con_fd添加进epoll
 				struct epoll_event ev;
 				ev.data.fd = con_fd;
-				/*对每个非listen_sock注册EPOLLONESHOT事件*/
+				/*对每个非listen_sock的con_fd注册EPOLLONESHOT,只触发事件
+				 * 就绪的con_fd一次，防止多个线程一起操作一个con_fd*/
 				ev.events = EPOLLIN | EPOLLONESHOT;  
 
 				if(epoll_ctl(epoll_fd, EPOLL_CTL_ADD, con_fd, &ev) < 0){ 
@@ -72,6 +73,7 @@ int main(int argc, char* argv[ ] )
 			}else{ 
 				if(event_list[i].events & EPOLLIN){ 
 				//con_fd 有读事件就绪，处理请求 
+					//printf( "!!!!!!!!!!! once more !!!!!!!\n");
 					fds_t fds_new_work;
 					fds_new_work.epollfd = epoll_fd;
 					fds_new_work.handlefd = event_list[i].data.fd;

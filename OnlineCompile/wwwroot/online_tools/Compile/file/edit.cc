@@ -1,12 +1,12 @@
-#include <iostream>
+#include<iostream>
 #include <unistd.h>
-using namespace std;
-int main()
+
+int main(void )
 {
-	int i=100;
-        while(i--){
-           cout<<"i="<<i<<endl;
-          sleep(1);
-       }         
-return 0;
+    for(int i=0; i< 5; ++i){
+     std::cout<<"分级基金接近 斤斤计较斤斤计较斤斤计较斤斤计较斤斤计较斤<br>"<<std::endl;
+     sleep(1);
+   }
+ 
+   return 0;
 }
