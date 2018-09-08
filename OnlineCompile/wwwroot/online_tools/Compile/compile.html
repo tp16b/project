@@ -10,26 +10,34 @@
 <h2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp在线编译器</h2>
 <hr />
 <form action="run.sh" method=post>
-编辑框:<br>
-<textarea name="edit_content"  style="width:650px; height:350px;"></textarea>
-<!--<input type="text" name="edit_content" value="#include <iostream> int main( ){ std::cout<<"change world\n";}" style="width:750px; height:350px;">-->
-<!--<textarea style=" width:300px;height:100px;"></textarea>-->
+<h4>在此编写您的代码: </h4>
+
+<textarea name="edit_content"  style="width:650px; height:350px;">
+#include <iostream>
+using namespace std;
+
+int main( )
+{ 
+   cout<<"change world !"<<endl;
+   return 0;
+}
+</textarea>
+
 <br>
-编译语言:<br>
+编程语言:<br>
 <select name="program_option" >
 	<option value="Java" >Java</option>
 	<option value="C" >C</option>
 	<option value="C++"  selected>C++</option>
 	<option value="Python" >Python</option>
+	<option value="Php" >Php</option>
 </select>
 <!--<input type="text" name="program_option" value="C++">-->
-<br><br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <input type="submit" value="提交运行">
 </form> 
 <a href="/"  target="_blank" >返回</a>
 <br>
-
-
 
 </body>
 </html>

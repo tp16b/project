@@ -55,6 +55,9 @@ int GenerateEditFile( )
 		fd = open("/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.java", 
 				O_RDWR|O_CREAT|O_TRUNC, 0644);	
 
+	}else if(option.compare("Php") == 0){ 
+		fd = open("/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.php", 
+				O_RDWR|O_CREAT|O_TRUNC, 0644);	
 	}else{ 
 		//...
 	} 

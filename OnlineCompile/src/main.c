@@ -86,6 +86,7 @@ int main(int argc, char* argv[ ] )
 			}
 		}
 	}
+	printf( "【Fatal!  程序允许结束】\n");
 	close( listen_sock);
 	close( epoll_fd);
 	return 0;
