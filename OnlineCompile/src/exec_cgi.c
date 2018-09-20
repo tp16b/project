@@ -60,8 +60,8 @@ int ExecCgi(int sock, const char* method, char* path,
 		//1. 操作管道
 		close( input[ 1]);
 		close( output[0]);
-		dup2( input[0], 0);
-		dup2( output[1], 1);
+		dup2( input[0], 0);			//将0(标准输入)重定向到input管道
+		dup2( output[1], 1);        //将1重定向到output管道
 
 		//2. 将参数导入环境变量
 		char method_env[MAX>>1]; 
@@ -99,7 +99,7 @@ int ExecCgi(int sock, const char* method, char* path,
 		close(input[0]);
 		close(output[1]);
 
-		char buff[BUFF_SIZE] = { 0}; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		char buff[BUFF_SIZE] = { 0}; //!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//2. 针对请求方法进行相应处理. GET方法直接通过
 		//query_string获得参数; 若是POST方法，继续从sock获取数据，
 		//提取请求正文中的参数,将参数送至input管道

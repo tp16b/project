@@ -48,7 +48,7 @@ int GenerateEditFile( )
 				O_RDWR|O_CREAT|O_TRUNC, 0644);	
 
 	}else if(option.compare("Python") == 0){ 
-		fd = open("/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.py", 
+		fd = open("/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/Python/edit.py", 
 				O_RDWR|O_CREAT|O_TRUNC, 0644);	
 
 	}else if(option.compare("Java") == 0){ 

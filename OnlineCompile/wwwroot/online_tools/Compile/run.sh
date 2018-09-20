@@ -39,7 +39,9 @@ elif [ "X$codefile" == "Xedit.cc" ];then
 		$SRCPATH/file/compile     #执行编译完的程序
 	fi
 elif [ "X$codefile" == "Xedit.py" ];then
-	echo "sorry,暂时还不支持python语言..."
+	#cd $PY_PATH;chmod 0644 $codefile;	
+	#/usr/bash $codefile		
+	echo "sorry,暂时还不支持python脚本..."
 elif [ "X$codefile" == "Xedit.java" ];then
 	echo "sorry,暂时还不支持java语言..."
 elif [ "X$codefile" == "Xedit.php" ];then

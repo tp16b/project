@@ -1,4 +1,5 @@
-# -*- coding: UTF-8 -*-
+#!/bin/bash
+
 def sum(x,y):
 	return x+y
 	

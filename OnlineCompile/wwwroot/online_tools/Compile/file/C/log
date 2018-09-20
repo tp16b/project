@@ -1,5 +1,9 @@
-/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.c:1:20: fatal error: iostream: No such file or directory
- #include <iostream>
-                    ^
-compilation terminated.
+/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.c: In function ‘main’:
+/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.c:6:4: error: ‘cout’ undeclared (first use in this function)
+    cout<<"hello"<<endl;
+    ^
+/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.c:6:4: note: each undeclared identifier is reported only once for each function it appears in
+/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/edit.c:6:19: error: ‘endl’ undeclared (first use in this function)
+    cout<<"hello"<<endl;
+                   ^
 make: *** [/home/tp/project/OnlineCompile/wwwroot/online_tools/Compile/file/compile] Error 1
