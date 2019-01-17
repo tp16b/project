@@ -55,8 +55,9 @@ public :
 	void addCourseForStu();
 	void cancleCourseForStu();
 	
+	//brose student complaint
+	void broseComplaint();
 	void showProfile();
-	//int complaint(); //no need
 
 	//加载
 	void loadData( );

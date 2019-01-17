@@ -45,7 +45,7 @@ int student( Admin& ad)
 	while(1) {
 		clrscr(); title();
 		cout<<"\t登录类型: 学生["<<it->usn_<<"]"<<endl<<endl;
-		cout<<"\t\t1 : 查看个人信息\n\t\t2 : 修改个人密码\n\t\t3 : 成绩查询\n\t\t4 : 选课管理\n\t\t5 : 反馈\n\t\t6 : 退出"<<endl;
+		cout<<"\t\t1 : 查看个人信息\n\t\t2 : 修改个人密码\n\t\t3 : 成绩查询\n\t\t4 : 选课管理\n\t\t5 : 反    馈\n\t\t6 : 退    出"<<endl;
 		cout<<"_______________________________________________________________________________"<<endl;
 		cout<<"\t请选择 : ";
 		cin>>choice;
@@ -64,7 +64,7 @@ int student( Admin& ad)
 				it->manageCourse("tp");
 				break;        
 			case 5 : 
-				cout<<"\t\t不接受反馈！\n";
+				it->Complaint( );
 				break;      
 			case 6 : 
 				cout<<"["<<it->usn_<<"]退出..."; 
@@ -84,7 +84,7 @@ int admin(Admin& ad)
 		cout<<"\t【登录类型】: 管理员[admin"<<"]"<<endl;
 		cout<<"_______________________________________________________________________________"<<endl;
 		cout<<"\t\t1 : 学生管理\n\t\t2 : 教师管理\n\t\t3 : 班级管理\n\t\t4 : 课程管理\n\t\t5 : 学生成绩管理\n\t\t6 : 学生选课管理";
-		cout<<"\n\t\t7 : 反馈\n\t\t8 : 退出"<<endl;
+		cout<<"\n\t\t7 : 查看学生反馈\n\t\t8 : 退        出"<<endl;
 		cout<<"_______________________________________________________________________________"<<endl;
 		cout<<"\t请选择 : ";
 		int choice; cin>>choice;
@@ -108,10 +108,10 @@ int admin(Admin& ad)
 				ad.handleChooseCourse( );
 				break;
 			case 7:
-				//ad.complaint();
+				ad.broseComplaint();
 				break;		   	
 			case 8:
-				cout<<"Logging out...["<<"]";
+				cout<<"Logging out...[admin]";
 				return 0;
 			default : cout<<"Select valid choice : ";
 		}
@@ -169,7 +169,7 @@ int main(){
 				ad.saveData( );
 				break;
 			case 4 :
-				cout<<"Terminating...\n"; sleep(1); exit(0);
+				cout<<"Terminating...\n"; usleep(1000); exit(0);
 			default:
 				cout <<"Invalid choice : "; cin.get();
 		}

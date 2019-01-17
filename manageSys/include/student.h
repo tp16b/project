@@ -50,9 +50,8 @@ typedef map<Course, int>::iterator Ite;
 		int addCourse(const string& c_id) ;    //添加课程至con_score_容器
 		int cancleCourse(const string& c_id) ;
 
-		//成绩查询
 		void showCourseScore() ; //显示学生所有课程与分数 
-	//	int complaint();
+		void Complaint();        //给系统反馈
 };
 struct ScoreTable{ 
 	string c_id;

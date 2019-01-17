@@ -1,5 +1,39 @@
 #include "admin.h"
 
+void Admin::broseComplaint()
+{ 
+	MYSQL mysql;
+	MYSQL_RES *res;
+	MYSQL_ROW row;
+	mysql_init (&mysql);
+
+	if(!mysql_real_connect(&mysql, "127.0.0.1", "root", "tpbeat","manage", 3306,0,0)){
+		cerr<< "mysql_real_connect failure！" << endl; return;
+	}
+
+	if(mysql_real_query(&mysql,"select * from complain order by complain_day desc;", (unsigned long)strlen("select * from complain order by complain_day desc"))){
+		cerr<< "mysql_real_query failure！" << endl;
+	}
+	res = mysql_store_result(&mysql);
+	if(NULL == res){
+		cerr << "mysql_store_result failure！" << endl;return;
+	}
+
+	//show all complains
+	clrscr( );title( );
+	char curDay[64]; GetDate(curDay);
+	cout<<"\n【关于反馈】:\t\t\t\t\t\t\t"<<curDay<<"\n\n";
+
+	while (row = mysql_fetch_row(res)){
+		string day(row[0]) ;
+		string content( row[ 1]);
+
+		cout<<"  "<<day<<"\t\t\t"<<content<<endl;
+	}
+	cout<<"_______________________________________________________________________________"<<endl;
+	mysql_free_result(res);
+	mysql_close(&mysql);
+}
 void Admin::manageCourse()
 { 
 	while( 1){ 
@@ -149,7 +183,7 @@ void Admin::manageStudent( )
 { 
 	while( 1){ 
 		clrscr();title( );
-		cout<<"\t\t1 : 添加学生入教务系统\n\t\t2 : 修改学生信息\n\t\t3 : 删除学生信息\n\t\t4 : 查看所有学生信息\n\t\t5: 退出"<<endl;
+		cout<<"\t\t1 : 添加学生入教务系统\n\t\t2 : 修改学生信息\n\t\t3 : 删除学生信息\n\t\t4 : 查看所有学生信息\n\t\t5 : 退      出"<<endl;
 		cout<<"_______________________________________________________________________________"<<endl;
 		cout<<"\n\t请选择 : ";
 		int cnt,choice; cin>>choice;
@@ -204,7 +238,7 @@ void Admin::handleChooseCourse( )
 { 
 	while( 1){ 
 		clrscr();title( );
-		cout<<"\t\t1 : 为学生添加课程\n\t\t2 : 删除学生选修课程\n\t\t3 : 修改学生选修课程\n\t\t4 : 退出"<<endl;
+		cout<<"\t\t1 : 为学生添加课程\n\t\t2 : 删除学生选修课程\n\t\t3 : 修改学生选修课程\n\t\t4 : 退	出"<<endl;
 		cout<<"_______________________________________________________________________________"<<endl;
 		cout<<"\n\t请选择 : ";
 		int choice; cin>>choice;
@@ -216,6 +250,7 @@ void Admin::handleChooseCourse( )
 				cancleCourseForStu();
 				break;
 			case 3://change 
+				cout<<"\n请结合上面两选项完成...\n";
 				break;
 			case 4:
 				return;
@@ -278,7 +313,7 @@ void Admin::manageScore( )
 { 
 	while( 1){ 
 		clrscr();title( );
-		cout<<"\t\t1 : 成绩录入\n\t\t2 : 成绩查询\n\t\t3 : 学生个人成绩修改\n\t\t4 : 退出"<<endl;
+		cout<<"\t\t1 : 成绩录入\n\t\t2 : 成绩查询\n\t\t3 : 学生个人成绩修改\n\t\t4 : 退		出"<<endl;
 		cout<<"_______________________________________________________________________________"<<endl;
 		cout<<"\n\t请选择 : ";
 		int choice; cin>>choice;
@@ -368,7 +403,7 @@ void Admin::loadData( )
 	mysql_init (&mysql);
 
 	if(!mysql_real_connect(&mysql, "127.0.0.1", "root", "tpbeat","manage", 3306,0,0)){
-		cerr<< "mysql_real_connect failure！" << endl;
+		cerr<< "mysql_real_connect failure！" << endl; return;
 	}
 
 	//load course
@@ -478,7 +513,7 @@ void Admin::saveData( )
 	MYSQL mysql;
 	mysql_init(&mysql);
 	if(!mysql_real_connect(&mysql, "127.0.0.1", "root", "tpbeat","manage", 3306,0,0)){
-		cerr<< "mysql_real_connect failure！" << endl;
+		cerr<< "mysql_real_connect failure！" << endl; return;
 	}
 
 	//清空数据库中表信息

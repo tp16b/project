@@ -1,5 +1,33 @@
 #include "student.h"
 
+void STUDENT::Complaint()
+{ 
+	MYSQL mysql;
+	MYSQL_RES *res;
+	MYSQL_ROW row;
+	mysql_init (&mysql);
+
+	if(!mysql_real_connect(&mysql, "127.0.0.1", "root", "tpbeat","manage", 3306,0,0)){
+		cerr<< "mysql_real_connect failure！" << endl; return;
+	}
+
+	//complains to sys
+	clrscr( );title( );
+	char curDay[32]; GetDate(curDay);
+	string content;  
+	cout<<"\n【关于建议】:\t\t\t\t\t\t\t"<<curDay<<"\n\t"<<"1. 您的意见将送至admin\n\t"<<"2. 反馈真实合理，言语大方得体\n\t"<<"3. 退出反馈请输入quit"<<endl;
+	cout<<"\n\n请在此畅所欲言："; cin>>content;
+	if( content == "quit") return;
+
+	char sql_buf[256];
+	sprintf(sql_buf, "insert into complain values('%s','%s')", curDay, content.c_str( )) ; 
+
+	if(mysql_real_query(&mysql, sql_buf, (unsigned long)strlen(sql_buf))){
+		cerr<< "mysql_real_query failure！" << endl; return;
+	}
+	mysql_close(&mysql);
+	cout<<"\n\n感谢反馈！\n";
+}
 void STUDENT::showProfile(){
 	clrscr();title();
 
