@@ -6,9 +6,11 @@
 # eclipce
 /bin
 *.ini
+*.class
 
 # c++
 *.o
+*.a
 
 
 *.zip
