@@ -1,0 +1,17 @@
+# idea配置
+/target
+*.war
+*.jar
+
+# eclipce
+/bin
+*.ini
+
+# c++
+*.o
+
+
+*.zip
+*.log
+*.rar
+*.tar.gz
